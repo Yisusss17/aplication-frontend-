@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -12,13 +12,44 @@ import {
   CInputGroup,
   CInputGroupText,
   CRow,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const [visible, setVisible] = useState(false)
   return (
     <div className="bg-body-white min-vh-100 d-flex flex-row align-items-center">
+      <CModal
+        alignment="center"
+        visible={visible}
+        onClose={() => setVisible(false)}
+        aria-labelledby="VerticallyCenteredExample"
+      >
+        <CModalHeader>
+          <CModalTitle id="VerticallyCenteredExample">Recuperación de Contraseña</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          Por favor digite su correo electrónico para enviarle un enlace de recuperación de contraseña.
+          <CInputGroup className="mb-2">
+              <CInputGroupText>@</CInputGroupText>
+              <CFormInput placeholder="Email" autoComplete="email" />
+          </CInputGroup>
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Cerrar
+          </CButton>
+          <CButton color="primary">Enviar</CButton>
+        </CModalFooter>
+      </CModal>
+
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={8}>
@@ -51,10 +82,11 @@ const Login = () => {
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Olvidó su contraseña?
+                        <CButton color="link" className="px-0" onClick={() => setVisible(true)}>
+                          ¿Olvidó su contraseña?
                         </CButton>
-                      </CCol>
+                        </CCol>
+
                     </CRow>
                     <CCardBody className="text-center">
                     <p className="text-body-secondary">¿No estas registrado?</p> 
@@ -70,6 +102,7 @@ const Login = () => {
           </CCol>
         </CRow>
       </CContainer>
+      
     </div>
   )
 }
