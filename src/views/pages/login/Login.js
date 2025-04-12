@@ -46,7 +46,7 @@ const Login = () => {
           <CButton color="secondary" onClick={() => setVisible(false)}>
             Cerrar
           </CButton>
-          <CButton color="primary">Enviar</CButton>
+          <CButton color="info">Enviar</CButton>
         </CModalFooter>
       </CModal>
 
@@ -77,12 +77,12 @@ const Login = () => {
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="info" className="px-4">
                           Iniciar Sesión
                         </CButton>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0" onClick={() => setVisible(true)}>
+                        <CButton color="info" className="px-0" onClick={() => setVisible(true)}>
                           ¿Olvidó su contraseña?
                         </CButton>
                         </CCol>
@@ -90,9 +90,11 @@ const Login = () => {
                     </CRow>
                     <CCardBody className="text-center">
                     <p className="text-body-secondary">¿No estas registrado?</p> 
-                        <CButton color="primary" className="mt-0" active tabIndex={-1}>
+                      <Link to="/register">
+                        <CButton color="info" className="mt-0" active tabIndex={-1} >
                         ¡Registrate aquí!
                       </CButton>
+                      </Link>
                       </CCardBody>
                   </CForm>
                 </CCardBody>
