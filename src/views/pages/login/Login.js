@@ -77,9 +77,11 @@ const Login = () => {
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
+                        <Link to="/dashboard">
                         <CButton color="info" className="px-4">
                           Iniciar Sesión
                         </CButton>
+                        </Link>
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="info" className="px-0" onClick={() => setVisible(true)}>
