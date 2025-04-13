@@ -13,20 +13,23 @@ import {
   cilPuzzle,
   cilSpeedometer,
   cilStar,
-} from '@coreui/icons'
+  cilUser,
+
+  } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
-  {
+   {
     component: CNavItem,
     name: 'Dashboard',
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
     badge: {
       color: 'info',
-      text: 'NEW',
+     
     },
   },
+  /*
   {
     component: CNavTitle,
     name: 'Theme',
@@ -58,6 +61,14 @@ const _nav = [
         name: 'Accordion',
         to: '/base/accordion',
       },
+
+      {
+        component: 'CNavItem',
+        name: 'Usuarios',
+        to: '/users',
+        icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+      },
+
       {
         component: CNavItem,
         name: 'Breadcrumb',
@@ -412,13 +423,15 @@ const _nav = [
   {
     component: CNavTitle,
     name: 'Extras',
-  },
+  },*/ 
+  
   {
     component: CNavGroup,
     name: 'Pages',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
-      {
+       
+     {
         component: CNavItem,
         name: 'Login',
         to: '/login',
@@ -446,6 +459,18 @@ const _nav = [
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
   },
+
+  {
+    component: CNavTitle,
+    name: 'modules',
+  },
+  {
+    component: CNavItem,
+    name: 'Users',
+    to: '/users',
+    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+  },
+
 ]
 
 export default _nav
