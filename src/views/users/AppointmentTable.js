@@ -21,7 +21,8 @@ import {
   CFormSelect,
 } from '@coreui/react'
 import "src/scss/user.scss"
-const DateList = () => {
+
+const AppointmentList = () => {
     const [users, setUsers] = useState([
         { id: 1, identity_card: '12345678', first_name: 'John', last_name: 'Doe', role_id: 1, email: 'john@example.com' },
         { id: 2, identity_card: '87654321', first_name: 'Jane', last_name: 'Smith', role_id: 2, email: 'jane@example.com' },
@@ -65,7 +66,7 @@ const DateList = () => {
       const [addVisible, setAddVisible] = useState(false) 
       const [confirmVisible, setConfirmVisible] = useState(false) // Controla la visibilidad de la ventana de confirmación
 const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usuario que se desea eliminar
-      
+
       
       const handleEdit = (user) => {
         setSelectedUser(user) 
@@ -381,4 +382,4 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
   
 }
 
-export default DateList
+export default AppointmentList
