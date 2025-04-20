@@ -98,6 +98,7 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/users', exact: true, name: 'Usuarios', element: UserList },
+  { path: '/dates', exact: true, name: 'Citas', element: UserList },
 ]
 
 export default routes
