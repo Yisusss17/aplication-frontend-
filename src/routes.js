@@ -99,6 +99,7 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/users', exact: true, name: 'Usuarios', element: UserList },
   { path: '/appointment', exact: true, name: 'Appointment', element: UserList },
+  { path: '/medication', exact: true, name: 'Medication', element: UserList },
 ]
 
 export default routes
