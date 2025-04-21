@@ -24,8 +24,8 @@ import "src/scss/user.scss"
 
 const MedicationList = () => {
     const [users, setUsers] = useState([
-        { id: 1, identity_card: '12345678', first_name: 'John', last_name: 'Doe', role_id: 1, email: 'john@example.com' },
-        { id: 2, identity_card: '87654321', first_name: 'Jane', last_name: 'Smith', role_id: 2, email: 'jane@example.com' },
+        { id: 1, Name: '12345678', Dosage: 'John', Category: 'Doe' },
+        { id: 2, Name: '87654321', Dosage: 'Jane', Category: 'Smith'},
       ])
       const [filters, setFilters] = useState({
         id: '',
