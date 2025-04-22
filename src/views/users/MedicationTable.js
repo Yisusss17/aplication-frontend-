@@ -21,27 +21,22 @@ import {
   CFormSelect,
 } from '@coreui/react'
 import "src/scss/user.scss"
-
 const MedicationList = () => {
-    const [users, setUsers] = useState([
-        { id: 1, Name: '12345678', Dosage: 'John', Category: 'Doe' },
-        { id: 2, Name: '87654321', Dosage: 'Jane', Category: 'Smith'},
+    const [meds, setMeds] = useState([
+        { id: 1, name: 'Acetaminophen', dosage: '325 mg', category: 1 },
+        { id: 2, name: 'Yonal', dosage: '5 ml', category: 2 },
       ])
       const [filters, setFilters] = useState({
         id: '',
-        identity_card: '',
-        first_name: '',
-        last_name: '',
-        role_id: '',
-        email: '',
+        name: '',
+        dosage: '',
+        category: '',
       })
 
-      const [newUser, setNewUser] = useState({
-        identity_card: '',
-        first_name: '',
-        last_name: '',
-        role_id: 1,
-        email: '',
+      const [newMed, setNewMed] = useState({
+        name: '',
+        dosage: '',
+        category: 1,
       })
       const handleFilterChange = (e) => {
         const { name, value } = e.target
@@ -50,52 +45,50 @@ const MedicationList = () => {
           [name]: value,
         })
       }
-      const filteredUsers = users.filter((user) => {
+      const filteredMeds = meds.filter((med) => {
         return (
-          (filters.id === '' || user.id.toString().includes(filters.id)) &&
-          (filters.identity_card === '' || user.identity_card.includes(filters.identity_card)) &&
-          (filters.first_name === '' || user.first_name.toLowerCase().includes(filters.first_name.toLowerCase())) &&
-          (filters.last_name === '' || user.last_name.toLowerCase().includes(filters.last_name.toLowerCase())) &&
-          (filters.role_id === '' || user.role_id.toString() === filters.role_id) &&
-          (filters.email === '' || user.email.toLowerCase().includes(filters.email.toLowerCase()))
+          (filters.id === '' || med.id.toString().includes(filters.id)) &&
+          (filters.name === '' || med.name.includes(filters.name)) &&
+          (filters.dosage === '' || med.dosage.toLowerCase().includes(filters.dosage.toLowerCase())) &&
+          (filters.category === '' || med.category.toLowerCase().includes(filters.category.toLowerCase()))
         )
       })
 
       const [visible, setVisible] = useState(false) 
-      const [selectedUser, setSelectedUser] = useState(null)
+      const [selectedMed, setSelectedMed] = useState(null)
       const [addVisible, setAddVisible] = useState(false) 
       const [confirmVisible, setConfirmVisible] = useState(false) // Controla la visibilidad de la ventana de confirmación
-const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usuario que se desea eliminar
+const [medToDelete, setMedToDelete] = useState(null) // Almacena el ID del usuario que se desea eliminar
 
       
-      const handleEdit = (user) => {
-        setSelectedUser(user) 
+      const handleEdit = (med) => {
+        setSelectedMed(med) 
         setVisible(true) 
       }
 
       const handleSave = () => {
-        setUsers(users.map((user) => (user.id === selectedUser.id ? selectedUser : user)))
+        setMeds(meds.map((med) => (med.id === selectedMed.id ? selectedMed : med)))
         setVisible(false) 
       }
 
-      const handleAddUser = (newUser) => {
-        setUsers([...users, { ...newUser, id: users.length + 1 }]) // Agrega el nuevo usuario con un ID único
+      const handleAddMed = (newMed) => {
+        setMeds([...meds, { ...newMed, id: meds.length + 1 }]) // Agrega el nuevo medicamento con un ID único
         setAddVisible(false) // Cierra la modal
       }
       
       const handleDelete = (id) => {
-        setUsers(users.filter((user) => user.id !== id)) // Filtra los usuarios y elimina el que coincide con el ID
+        setMeds(meds.filter((med) => med.id !== id)) // Filtra los usuarios y elimina el que coincide con el ID
       }
 
       const handleDeleteClick = (id) => {
-        setUserToDelete(id) // Establece el ID del usuario que se desea eliminar
+        setMedToDelete(id) // Establece el ID del medicamento que se desea eliminar
         setConfirmVisible(true) // Muestra la ventana de confirmación
       }
 
       const confirmDelete = () => {
-        setUsers(users.filter((user) => user.id !== userToDelete)) // Elimina el usuario con el ID especificado
+        setMeds(meds.filter((med) => med.id !== medToDelete)) // Elimina el medicamento con el ID especificado
         setConfirmVisible(false) // Cierra la ventana de confirmación
-        setUserToDelete(null) // Limpia el estado del usuario a eliminar
+        setMedToDelete(null) // Limpia el estado del medicamento a eliminar
       }
       
   return (
@@ -117,57 +110,37 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
         />
       </div>
       <div className="col-md-2">
-        <CFormLabel>Identity Card</CFormLabel>
+        <CFormLabel>Name</CFormLabel>
         <CFormInput
           type="text"
-          placeholder="Search Identity Card"
-          name="identity_card"
-          value={filters.identity_card}
+          placeholder="Search Name"
+          name="name"
+          value={filters.name}
           onChange={handleFilterChange}
         />
       </div>
       <div className="col-md-2">
-        <CFormLabel>First Name</CFormLabel>
+        <CFormLabel>Dosage</CFormLabel>
         <CFormInput
           type="text"
-          placeholder="Search First Name"
-          name="first_name"
-          value={filters.first_name}
+          placeholder="Search Dosage"
+          name="dosage"
+          value={filters.dosage}
           onChange={handleFilterChange}
         />
       </div>
       <div className="col-md-2">
-        <CFormLabel>Last Name</CFormLabel>
-        <CFormInput
-          type="text"
-          placeholder="Search Last Name"
-          name="last_name"
-          value={filters.last_name}
-          onChange={handleFilterChange}
-        />
-      </div>
-      <div className="col-md-2">
-        <CFormLabel>Role</CFormLabel>
-        <CFormSelect
-          name="role_id"
-          value={filters.role_id}
-          onChange={handleFilterChange}
-        >
-          <option value="">All Roles</option>
-          <option value="1">Admin</option>
-          <option value="2">doctor</option>
-        </CFormSelect>
-      </div>
-      <div className="col-md-2">
-        <CFormLabel>Email</CFormLabel>
-        <CFormInput
-          type="text"
-          placeholder="Search Email"
-          name="email"
-          value={filters.email}
-          onChange={handleFilterChange}
-        />
-      </div>
+              <CFormLabel>Category</CFormLabel>
+              <CFormSelect
+                name="category"
+                value={filters.category}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Category</option>
+                <option value="1">Capsules</option>
+                <option value="2">Syrups</option>
+              </CFormSelect>
+            </div>
     </CForm>
   </CCardBody>
 </CCard>
@@ -175,44 +148,40 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
     <div>
     <CCardHeader>
   <CButton style={{margin: '10px'}} color="success" onClick={() => setAddVisible(true)}>
-    Add User
+    Add Medication
   </CButton>
   
 </CCardHeader>
     </div>
     <CCard className="table-responsive">
-        <CCardHeader>List of Users</CCardHeader>
+        <CCardHeader>List of Medication</CCardHeader>
         <CCardBody>
           <CTable hover>
             <CTableHead>
               <CTableRow>
                 <CTableHeaderCell>ID</CTableHeaderCell>
-                <CTableHeaderCell>Identity Card</CTableHeaderCell>
-                <CTableHeaderCell>First Name</CTableHeaderCell>
-                <CTableHeaderCell>Last Name</CTableHeaderCell>
-                <CTableHeaderCell>Role</CTableHeaderCell>
-                <CTableHeaderCell>Email</CTableHeaderCell>
+                <CTableHeaderCell>Name</CTableHeaderCell>
+                <CTableHeaderCell>Dosage</CTableHeaderCell>
+                <CTableHeaderCell>Category</CTableHeaderCell>
                 <CTableHeaderCell>Actions</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
             <CTableBody>
    
-  {filteredUsers.map((user) => (
-    <CTableRow key={user.id}>
-      <CTableDataCell>{user.id}</CTableDataCell>
-      <CTableDataCell>{user.identity_card}</CTableDataCell>
-      <CTableDataCell>{user.first_name}</CTableDataCell>
-      <CTableDataCell>{user.last_name}</CTableDataCell>
-      <CTableDataCell>{user.role_id === 1 ? 'Admin' : 'doctor'}</CTableDataCell>
-      <CTableDataCell>{user.email}</CTableDataCell>
+  {filteredMeds.map((med) => (
+    <CTableRow key={med.id}>
+      <CTableDataCell>{med.id}</CTableDataCell>
+      <CTableDataCell>{med.name}</CTableDataCell>
+      <CTableDataCell>{med.dosage}</CTableDataCell>
+      <CTableDataCell>{med.category === 1 ? 'Capsules' : 'Syrups'}</CTableDataCell>
       <CTableDataCell>
         <div className='buttom_action'>
-        <CButton className='buttom_action_1' color="primary" size="sm" onClick={() => handleEdit(user)}>Edit</CButton>{' '}
+        <CButton className='buttom_action_1' color="primary" size="sm" onClick={() => handleEdit(med)}>Edit</CButton>{' '}
         <CButton
   className="buttom_action_2"
   color="danger"
   size="sm"
-  onClick={() => handleDeleteClick(user.id)} // Llama a la función para mostrar la ventana de confirmación
+  onClick={() => handleDeleteClick(med.id)} // Llama a la función para mostrar la modal de confirmación
 >
   Delete
 </CButton>
@@ -227,60 +196,44 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
 
       <CModal visible={visible} onClose={() => setVisible(false)}>
   <CModalHeader>
-    <CModalTitle>Edit User</CModalTitle>
+    <CModalTitle>Edit Medication</CModalTitle>
   </CModalHeader>
   <CModalBody>
-    {selectedUser && (
+    {selectedMed && (
       <CForm>
         <div className="mb-3">
           <CFormLabel>ID</CFormLabel>
           <CFormInput
             type="text"
-            value={selectedUser.id}
+            value={selectedMed.id}
             disabled
           />
         </div>
         <div className="mb-3">
-          <CFormLabel>Identity Card</CFormLabel>
+          <CFormLabel>Name</CFormLabel>
           <CFormInput
             type="text"
-            value={selectedUser.identity_card}
-            onChange={(e) => setSelectedUser({ ...selectedUser, identity_card: e.target.value })}
+            value={selectedMed.name}
+            onChange={(e) => setSelectedMed({ ...selectedMed, name: e.target.value })}
           />
         </div>
         <div className="mb-3">
-          <CFormLabel>First Name</CFormLabel>
+          <CFormLabel>Dosage</CFormLabel>
           <CFormInput
             type="text"
-            value={selectedUser.first_name}
-            onChange={(e) => setSelectedUser({ ...selectedUser, first_name: e.target.value })}
+            value={selectedMed.dosage}
+            onChange={(e) => setSelectedMed({ ...selectedMed, dosage: e.target.value })}
           />
         </div>
         <div className="mb-3">
-          <CFormLabel>Last Name</CFormLabel>
-          <CFormInput
-            type="text"
-            value={selectedUser.last_name}
-            onChange={(e) => setSelectedUser({ ...selectedUser, last_name: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
-          <CFormLabel>Role</CFormLabel>
+          <CFormLabel>Category</CFormLabel>
           <CFormSelect
-            value={selectedUser.role_id}
-            onChange={(e) => setSelectedUser({ ...selectedUser, role_id: parseInt(e.target.value) })}
+            value={selectedMed.category}
+            onChange={(e) => setSelectedMed({ ...selectedMed, category: parseInt(e.target.value) })}
           >
-            <option value={1}>Admin</option>
-            <option value={2}>doctor</option>
+            <option value={1}>Capsules</option>
+            <option value={2}>Syrups</option>
           </CFormSelect>
-        </div>
-        <div className="mb-3">
-          <CFormLabel>Email</CFormLabel>
-          <CFormInput
-            type="email"
-            value={selectedUser.email}
-            onChange={(e) => setSelectedUser({ ...selectedUser, email: e.target.value })}
-          />
         </div>
       </CForm>
     )}
@@ -297,55 +250,37 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
     </CCard>
     <CModal visible={addVisible} onClose={() => setAddVisible(false)}>
   <CModalHeader>
-    <CModalTitle>Add New User</CModalTitle>
+    <CModalTitle>Add New Medication</CModalTitle>
   </CModalHeader>
   <CModalBody>
     <CForm>
       <div className="mb-3">
-        <CFormLabel>Identity Card</CFormLabel>
+        <CFormLabel>Name</CFormLabel>
         <CFormInput
           type="text"
-          placeholder="Enter Identity Card"
-          value={newUser.identity_card}
-          onChange={(e) => setNewUser({ ...newUser, identity_card: e.target.value })}
+          placeholder="Enter Name"
+          value={newMed.name}
+          onChange={(e) => setNewMed({ ...newMed, name: e.target.value })}
         />
       </div>
       <div className="mb-3">
-        <CFormLabel>First Name</CFormLabel>
+        <CFormLabel>Dosage</CFormLabel>
         <CFormInput
           type="text"
-          placeholder="Enter First Name"
-          value={newUser.first_name}
-          onChange={(e) => setNewUser({ ...newUser, first_name: e.target.value })}
+          placeholder="Enter Dosage"
+          value={newMed.dosage}
+          onChange={(e) => setNewMed({ ...newMed, dosage: e.target.value })}
         />
       </div>
       <div className="mb-3">
-        <CFormLabel>Last Name</CFormLabel>
-        <CFormInput
-          type="text"
-          placeholder="Enter Last Name"
-          value={newUser.last_name}
-          onChange={(e) => setNewUser({ ...newUser, last_name: e.target.value })}
-        />
-      </div>
-      <div className="mb-3">
-        <CFormLabel>Role</CFormLabel>
+        <CFormLabel>Category</CFormLabel>
         <CFormSelect
-          value={newUser.role_id}
-          onChange={(e) => setNewUser({ ...newUser, role_id: parseInt(e.target.value) })}
+          value={newMed.category}
+          onChange={(e) => setNewMed({ ...newMed, category: parseInt(e.target.value) })}
         >
-          <option value={1}>Admin</option>
-          <option value={2}>doctor</option>
+          <option value={1}>Capsules</option>
+          <option value={2}>Syrups</option>
         </CFormSelect>
-      </div>
-      <div className="mb-3">
-        <CFormLabel>Email</CFormLabel>
-        <CFormInput
-          type="email"
-          placeholder="Enter Email"
-          value={newUser.email}
-          onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-        />
       </div>
     </CForm>
   </CModalBody>
@@ -353,8 +288,8 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
     <CButton color="secondary" onClick={() => setAddVisible(false)}>
       Cancel
     </CButton>
-    <CButton color="primary" onClick={() => handleAddUser(newUser)}>
-      Add User
+    <CButton color="primary" onClick={() => handleAddMed(newMed)}>
+      Add Medication
     </CButton>
   </CModalFooter>
 </CModal>
@@ -365,7 +300,7 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
     <CModalTitle>Confirm Delete</CModalTitle>
   </CModalHeader>
   <CModalBody>
-    Are you sure you want to delete this user? This action cannot be undone.
+    Are you sure you want to delete this meditacion? This action cannot be undone.
   </CModalBody>
   <CModalFooter>
     <CButton color="secondary" onClick={() => setConfirmVisible(false)}>
