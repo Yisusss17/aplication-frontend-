@@ -1,6 +1,6 @@
 import React from 'react'
 const UserList = React.lazy(() => import('./views/users/UserTable'))
-const MedicationList = React.lazy(() => import('./views/users/MedicationTable'))
+const MedicationList = React.lazy(() => import('./views/medication/MedicationTable'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))

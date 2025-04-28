@@ -33,10 +33,10 @@ const Login = () => {
         aria-labelledby="VerticallyCenteredExample"
       >
         <CModalHeader>
-          <CModalTitle id="VerticallyCenteredExample">Recuperación de Contraseña</CModalTitle>
+          <CModalTitle id="VerticallyCenteredExample">Password Recovery</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          Por favor digite su correo electrónico para enviarle un enlace de recuperación de contraseña.
+          Please enter your email address to receive a password recovery link.
           <CInputGroup className="mb-2">
               <CInputGroupText>@</CInputGroupText>
               <CFormInput placeholder="Email" autoComplete="email" />
@@ -44,9 +44,9 @@ const Login = () => {
         </CModalBody>
         <CModalFooter>
           <CButton color="secondary" onClick={() => setVisible(false)}>
-            Cerrar
+            Close
           </CButton>
-          <CButton color="info">Enviar</CButton>
+          <CButton color="info">Send</CButton>
         </CModalFooter>
       </CModal>
 
@@ -57,13 +57,13 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Inicio de Sesión</h1>
-                    <p className="text-body-secondary">Inicia sesión con tus datos</p>
+                    <h1>Login</h1>
+                    <p className="text-body-secondary"> Sign in with your details</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Correo" autoComplete="username" />
+                      <CFormInput placeholder="Emal" autoComplete="username" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -71,7 +71,7 @@ const Login = () => {
                       </CInputGroupText>
                       <CFormInput
                         type="password"
-                        placeholder="Contraseña"
+                        placeholder="Password"
                         autoComplete="current-password"
                       />
                     </CInputGroup>
@@ -79,22 +79,22 @@ const Login = () => {
                       <CCol xs={6}>
                         <Link to="/dashboard">
                         <CButton color="info" className="px-4">
-                          Iniciar Sesión
+                          Login
                         </CButton>
                         </Link>
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="info" className="px-0" onClick={() => setVisible(true)}>
-                          ¿Olvidó su contraseña?
+                          Forgot your password?
                         </CButton>
                         </CCol>
 
                     </CRow>
                     <CCardBody className="text-center">
-                    <p className="text-body-secondary">¿No estas registrado?</p> 
+                    <p className="text-body-secondary">Are you not registered?</p> 
                       <Link to="/register">
                         <CButton color="info" className="mt-0" active tabIndex={-1} >
-                        ¡Registrate aquí!
+                        Register here!
                       </CButton>
                       </Link>
                       </CCardBody>
