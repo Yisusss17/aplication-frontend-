@@ -1,6 +1,7 @@
 import React from 'react'
 const UserList = React.lazy(() => import('./views/users/UserTable'))
-const MedicationList = React.lazy(() => import('./views/users/MedicationTable'))
+const MedicationList = React.lazy(() => import('./views/medication/MedicationTable'))
+const ProfiledPage = React.lazy(() => import('./views/profiled/Profiled'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -101,6 +102,7 @@ const routes = [
   { path: '/users', exact: true, name: 'Usuarios', element: UserList },
   { path: '/appointment', exact: true, name: 'Appointment', element: UserList },
   { path: '/medication', exact: true, name: 'Medication', element: MedicationList },
+  { path: '/profiled', exact: true, name: 'Profile', element: ProfiledPage },
 ]
 
 export default routes

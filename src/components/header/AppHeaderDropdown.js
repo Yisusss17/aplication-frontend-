@@ -63,8 +63,11 @@ const AppHeaderDropdown = () => {
         </CDropdownItem>
         <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
         <CDropdownItem href="#">
+          
           <CIcon icon={cilUser} className="me-2" />
+          <Link to="/profiled">
           Profile
+          </Link>
         </CDropdownItem>
         <CDropdownItem href="#">
           <CIcon icon={cilSettings} className="me-2" />
@@ -88,7 +91,7 @@ const AppHeaderDropdown = () => {
         <CDropdownItem href="#">
           <Link to="/login">
           <CIcon icon={cilLockLocked} className="me-2" />
-          Cerrar Sesión
+          Log out
           </Link>
         </CDropdownItem>
       </CDropdownMenu>

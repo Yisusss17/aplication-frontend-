@@ -23,13 +23,13 @@ const Register = () => {
             <CCard className="mx-4">
               <CCardBody className="p-4">
                 <CForm>
-                  <h1>Registro</h1>
-                  <p className="text-body-secondary">¡Crea tu nueva cuenta en la clínica!</p>
+                  <h1>Register</h1>
+                  <p className="text-body-secondary">Create your new account at the clinic!</p>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Nombre de Usuario" autoComplete="username" />
+                    <CFormInput placeholder="Username" autoComplete="username" />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
@@ -41,7 +41,7 @@ const Register = () => {
                     </CInputGroupText>
                     <CFormInput
                       type="password"
-                      placeholder="Contraseña"
+                      placeholder="Password"
                       autoComplete="new-password"
                     />
                   </CInputGroup>
@@ -51,7 +51,7 @@ const Register = () => {
                     </CInputGroupText>
                     <CFormInput
                       type="password"
-                      placeholder="Repite Contraseña"
+                      placeholder="Repeat Password"
                       autoComplete="new-password"
                     />
                   </CInputGroup>
