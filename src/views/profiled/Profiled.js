@@ -15,8 +15,12 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
+  CAvatar,
 } from '@coreui/react'
+import { cilUser } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 import "src/scss/user.scss"
+import avatar8 from './../../assets/images/avatars/8.jpg'
 
 const ProfiledPage = () => {
   const [visible, setVisible] = useState(false)
@@ -34,10 +38,16 @@ const ProfiledPage = () => {
 
   return (
     <CRow className="justify-content-center">
-      <CCol md={8}>
-        <CCard>
-          <CCardHeader>
-            <h5>Profile Information</h5>
+      <CCol md={6}>
+        <CCard className="mb-4">
+          <CCardHeader className="text-center">
+            <CAvatar
+              src={avatar8}
+              size="xl"
+              className="mb-3"
+            />
+            <h5>{profileData.name}</h5>
+            <p className="text-muted">{profileData.email}</p>
           </CCardHeader>
           <CCardBody>
             <CForm>
@@ -67,8 +77,7 @@ const ProfiledPage = () => {
                   onChange={handleInputChange}
                 >
                   <option value="Admin">Admin</option>
-                  <option value="User">User</option>
-                  <option value="Guest">Guest</option>
+                  <option value="Doctor">Doctor</option>
                 </CFormSelect>
               </div>
               <div className="mb-3">
@@ -82,9 +91,11 @@ const ProfiledPage = () => {
                   <option value="Inactive">Inactive</option>
                 </CFormSelect>
               </div>
-              <CButton color="info" onClick={() => setVisible(true)}>
-                Save Changes
-              </CButton>
+              <div className="text-center">
+                <CButton color="info" onClick={() => setVisible(true)}>
+                  Save Changes
+                </CButton>
+              </div>
             </CForm>
           </CCardBody>
         </CCard>

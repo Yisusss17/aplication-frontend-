@@ -102,7 +102,7 @@ const routes = [
   { path: '/users', exact: true, name: 'Usuarios', element: UserList },
   { path: '/appointment', exact: true, name: 'Appointment', element: UserList },
   { path: '/medication', exact: true, name: 'Medication', element: MedicationList },
-  { path: '/profiled', exact: true, name: 'Profiled', element: ProfiledPage },
+  { path: '/profiled', exact: true, name: 'Profile', element: ProfiledPage },
 ]
 
 export default routes
