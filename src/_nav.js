@@ -419,12 +419,11 @@ const _nav = [
     name: 'Extras',
   },*/ 
   
-  {
+/*  {
     component: CNavGroup,
     name: 'Pages',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
-       
      {
         component: CNavItem,
         name: 'Login',
@@ -446,13 +445,13 @@ const _nav = [
         to: '/500',
       },
     ],
-  },
-  {
+  },*/
+/*  {
     component: CNavItem,
     name: 'Docs',
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
+  },*/
 
   {
     component: CNavTitle,
