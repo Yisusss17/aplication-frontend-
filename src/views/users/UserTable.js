@@ -151,7 +151,7 @@ const UserList = () => {
         >
           <option value="">All Roles</option>
           <option value="1">Admin</option>
-          <option value="2">doctor</option>
+          <option value="2">Doctor</option>
         </CFormSelect>
       </div>
       <div className="col-md-2">

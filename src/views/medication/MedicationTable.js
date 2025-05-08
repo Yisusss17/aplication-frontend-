@@ -50,7 +50,7 @@ const MedicationList = () => {
           (filters.id === '' || med.id.toString().includes(filters.id)) &&
           (filters.name === '' || med.name.includes(filters.name)) &&
           (filters.dosage === '' || med.dosage.toLowerCase().includes(filters.dosage.toLowerCase())) &&
-          (filters.category === '' || med.category.toLowerCase().includes(filters.category.toLowerCase()))
+          (filters.category === '' || med.category.toString() === filters.category)
         )
       })
 

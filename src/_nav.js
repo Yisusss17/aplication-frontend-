@@ -15,6 +15,7 @@ import {
   cilStar,
   cilUser,
   cilMedicalCross,
+  cilGroup,
   } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -419,12 +420,11 @@ const _nav = [
     name: 'Extras',
   },*/ 
   
-  {
+/*  {
     component: CNavGroup,
     name: 'Pages',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
     items: [
-       
      {
         component: CNavItem,
         name: 'Login',
@@ -446,13 +446,13 @@ const _nav = [
         to: '/500',
       },
     ],
-  },
-  {
+  },*/
+/*  {
     component: CNavItem,
     name: 'Docs',
     href: 'https://coreui.io/react/docs/templates/installation/',
     icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
+  },*/
 
   {
     component: CNavTitle,
@@ -466,19 +466,16 @@ const _nav = [
   },
   {
     component: CNavItem,
-
-    name: 'Appointment',
-    to: '/appointment',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-
     name: 'Medication',
     to: '/medication',
     icon: <CIcon icon={cilMedicalCross} customClassName="nav-icon" />,
   },
-
+  {
+    component: CNavItem,
+    name: 'Patient',
+    to: '/patient',
+    icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
+  },
 ]
 
 export default _nav
