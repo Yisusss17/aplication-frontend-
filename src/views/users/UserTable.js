@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -11,6 +12,7 @@ import {
   CTableHeaderCell,
   CTableRow,
   CModal,
+  CModalBody,
   CModalHeader,
   CModalTitle,
   CModalFooter,
@@ -76,7 +78,7 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
         setVisible(false) 
       }
 
-      const handleAddUer = (newUser) => {
+      const handleAddUser = (newUser) => {
         setUsers([...users, { ...newUser, id: users.length + 1 }]) // Agrega el nuevo usuario con un ID único
         setAddVisible(false) // Cierra la modal
       }
