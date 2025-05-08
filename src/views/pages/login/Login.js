@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import {
   CButton,
   CCard,
@@ -24,6 +25,34 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 const Login = () => {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Email and password are required');
+      return;
+    }
+    try {
+      const response = await axios.get('http://localhost:3001/users', {
+        params: {
+          email,
+          password,
+        },
+      })
+
+      if (response.data.length > 0) {
+        navigate('/dashboard')
+      } else {
+        setError('Invalid email or password') 
+      }
+    } catch (err) {
+      console.error(err)
+      setError('An error occurred while logging in')
+    }
+  }
+
   return (
     <div className="bg-body-white min-vh-100 d-flex flex-row align-items-center">
       <CModal
@@ -63,7 +92,13 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Emal" autoComplete="username" />
+                      <CFormInput
+                        type="email"
+                        placeholder="Email"
+                        autoComplete="username"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -73,22 +108,22 @@ const Login = () => {
                         type="password"
                         placeholder="Password"
                         autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                     </CInputGroup>
+                    {error && <p className="text-danger">{error}</p>}
                     <CRow>
                       <CCol xs={6}>
-                        <Link to="/dashboard">
-                        <CButton color="info" className="px-4">
+                        <CButton color="info" className="px-4" onClick={handleLogin}>
                           Login
                         </CButton>
-                        </Link>
                       </CCol>
                       <CCol xs={6} className="text-right">
                         <CButton color="info" className="px-0" onClick={() => setVisible(true)}>
                           Forgot your password?
                         </CButton>
-                        </CCol>
-
+                      </CCol>
                     </CRow>
                     <CCardBody className="text-center">
                     <p className="text-body-secondary">Are you not registered?</p> 

@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "username": "name",
+      "email": "hola@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "36c0",
+      "username": "holaa",
+      "email": "holaa@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "1be9",
+      "username": "ola",
+      "email": "ola@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "ba8c",
+      "username": "yry6yty",
+      "email": "sdasd@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "8267",
+      "username": "hello",
+      "email": "hello@gmail.com",
+      "password": "12345"
+    }
+  ]
+}
