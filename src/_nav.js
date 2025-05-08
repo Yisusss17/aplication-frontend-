@@ -15,6 +15,7 @@ import {
   cilStar,
   cilUser,
   cilMedicalCross,
+  cilGroup,
   } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -465,19 +466,16 @@ const _nav = [
   },
   {
     component: CNavItem,
-
-    name: 'Appointment',
-    to: '/appointment',
-    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-
     name: 'Medication',
     to: '/medication',
     icon: <CIcon icon={cilMedicalCross} customClassName="nav-icon" />,
   },
-
+  {
+    component: CNavItem,
+    name: 'Patient',
+    to: '/patient',
+    icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
+  },
 ]
 
 export default _nav

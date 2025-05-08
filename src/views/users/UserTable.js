@@ -154,7 +154,7 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
         >
           <option value="">All Roles</option>
           <option value="1">Admin</option>
-          <option value="2">doctor</option>
+          <option value="2">Doctor</option>
         </CFormSelect>
       </div>
       <div className="col-md-2">
@@ -202,7 +202,7 @@ const [userToDelete, setUserToDelete] = useState(null) // Almacena el ID del usu
       <CTableDataCell>{user.identity_card}</CTableDataCell>
       <CTableDataCell>{user.first_name}</CTableDataCell>
       <CTableDataCell>{user.last_name}</CTableDataCell>
-      <CTableDataCell>{user.role_id === 1 ? 'Admin' : 'doctor'}</CTableDataCell>
+      <CTableDataCell>{user.role_id === 1 ? 'Admin' : 'Doctor'}</CTableDataCell>
       <CTableDataCell>{user.email}</CTableDataCell>
       <CTableDataCell>
         <div className='buttom_action'>
