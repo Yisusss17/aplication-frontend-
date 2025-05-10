@@ -1,6 +1,6 @@
 import React from 'react'
-const UserList = React.lazy(() => import('./views/users/UserTable'))
 const MedicationList = React.lazy(() => import('./views/medication/MedicationTable'))
+const UserList = React.lazy(() => import('./views/users/UserTable'))
 const ProfiledPage = React.lazy(() => import('./views/profiled/Profiled'))
 const PatientList = React.lazy(() => import('./views/patient/PatientTable'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -100,8 +100,7 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/users', exact: true, name: 'Usuarios', element: UserList },
-  { path: '/appointment', exact: true, name: 'Appointment', element: UserList },
+  { path: '/users', exact: true, name: 'Users', element: UserList },
   { path: '/medication', exact: true, name: 'Medication', element: MedicationList },
   { path: '/profiled', exact: true, name: 'Profile', element: ProfiledPage },
   { path: '/patient', exact: true, name: 'Patient', element: PatientList },

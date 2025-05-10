@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -11,9 +12,9 @@ import {
   CTableHeaderCell,
   CTableRow,
   CModal,
+  CModalBody,
   CModalHeader,
   CModalTitle,
-  CModalBody,
   CModalFooter,
   CForm,
   CFormLabel,
