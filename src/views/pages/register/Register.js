@@ -37,52 +37,44 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center" style={{ background: 'linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%)' }}>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={9} lg={7} xl={6}>
-            <CCard className="mx-4">
-              <CCardBody className="p-4">
-                <CForm onSubmit={handleCreateAction}>
-                  <h1>Register</h1>
+            <CCard className="mx-4 shadow-lg border-0 rounded-4">
+              <CCardBody className="p-5">
+                <div className="text-center mb-4">
+                  <CIcon icon={cilUser} size="xxl" className="mb-2 text-info" />
+                  <h1 className="fw-bold">Register</h1>
                   <p className="text-body-secondary">Create your new account at the clinic!</p>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
+                </div>
+                <CForm onSubmit={handleCreateAction}>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText className="bg-info text-white">
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput 
-                    type="text"
-                    placeholder="Username" 
-                    autoComplete="username" 
-                    value={newUser.username}
-                    onChange={(e)=> setNewUser({...newUser, username: e.target.value})}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput 
-                    type="email"
-                    placeholder="Email" 
-                    autoComplete="email" 
-                    required
-                    value={newUser.email}
-                    onChange={(e)=> setNewUser({...newUser, email: e.target.value})}
-                    />
-                  </CInputGroup>
-                  <CInputGroup className="mb-3">
-                    <CInputGroupText>
-                      <CIcon icon={cilLockLocked} />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="new-password"
-                      value={newUser.password}
-                      onChange={(e)=> setNewUser({...newUser, password: e.target.value})}
+                      type="text"
+                      placeholder="Username" 
+                      autoComplete="username" 
+                      value={newUser.username}
+                      onChange={(e)=> setNewUser({...newUser, username: e.target.value})}
+                      required
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
-                    <CInputGroupText>
+                    <CInputGroupText className="bg-info text-white">@</CInputGroupText>
+                    <CFormInput 
+                      type="email"
+                      placeholder="Email" 
+                      autoComplete="email" 
+                      required
+                      value={newUser.email}
+                      onChange={(e)=> setNewUser({...newUser, email: e.target.value})}
+                    />
+                  </CInputGroup>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText className="bg-info text-white">
                       <CIcon icon={cilLockLocked} />
                     </CInputGroupText>
                     <CFormInput
@@ -91,13 +83,23 @@ const Register = () => {
                       autoComplete="new-password"
                       value={newUser.password}
                       onChange={(e)=> setNewUser({...newUser, password: e.target.value})}
+                      required
                     />
                   </CInputGroup>
-                  <div className="d-grid">
-                    
-                    <CButton type="submit" color='info' >Create Account</CButton>
-                    <Link to="/login">
-                    <CButton color='danger'>Cancel</CButton>
+                  <CInputGroup className="mb-4">
+                    <CInputGroupText className="bg-info text-white">
+                      <CIcon icon={cilLockLocked} />
+                    </CInputGroupText>
+                    <CFormInput
+                      type="password"
+                      placeholder="Confirm Password"
+                      autoComplete="new-password"
+                    />
+                  </CInputGroup>
+                  <div className="d-grid gap-2">
+                    <CButton type="submit" color='info' size="lg" className="fw-bold">Create Account</CButton>
+                    <Link to="/login" className="text-decoration-none">
+                      <CButton color='danger' className="border border-danger text-light fw-bold" size="lg">Cancel</CButton>
                     </Link>
                   </div>
                 </CForm>
