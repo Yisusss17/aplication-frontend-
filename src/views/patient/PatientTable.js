@@ -23,8 +23,8 @@ import {
 import "src/scss/user.scss"
 const PatientList = () => {
     const [patients, setPatients] = useState([
-        { id: 1, identity_card: '12345678', first_name: 'John', last_name: 'Doe', adress: `San Cristobal`, phone: `04247214766`, email: 'john@example.com' },
-        { id: 2, identity_card: '87654321', first_name: 'Jane', last_name: 'Smith', adress: `Rubio`, phone: `04247214766`, email: 'jane@example.com' },
+        { id: 1, identity_card: '12345678', first_name: 'John', last_name: 'Doe', adress: `San Cristobal`, phone: `04247214766`, email: 'john@example.com', birth_date: '1990-01-01' },
+        { id: 2, identity_card: '87654321', first_name: 'Jane', last_name: 'Smith', adress: `Rubio`, phone: `04247214766`, email: 'jane@example.com', birth_date: '1992-02-02' },
       ])
       const [filters, setFilters] = useState({
         id: '',
@@ -34,6 +34,7 @@ const PatientList = () => {
         adress: '',
         phone: '',
         email: '',
+        birth_date: '',
       })
 
       const [newPatient, setNewPatient] = useState({
@@ -43,6 +44,7 @@ const PatientList = () => {
         adress: '',
         phone: '',
         email: '',
+        birth_date: '',
       })
       const handleFilterChange = (e) => {
         const { name, value } = e.target
@@ -59,7 +61,8 @@ const PatientList = () => {
           (filters.last_name === '' || patient.last_name.toLowerCase().includes(filters.last_name.toLowerCase())) &&
           (filters.adress === '' || patient.adress.toLowerCase().includes(filters.adress.toLowerCase())) &&
           (filters.phone === '' || patient.phone.toLowerCase().includes(filters.phone.toLowerCase())) &&
-          (filters.email === '' || patient.email.toLowerCase().includes(filters.email.toLowerCase()))
+          (filters.email === '' || patient.email.toLowerCase().includes(filters.email.toLowerCase())) &&
+          (filters.birth_date === '' || (patient.birth_date && patient.birth_date.includes(filters.birth_date)))
         )
       });
 
@@ -178,6 +181,16 @@ const [patientToDelete, setPatientToDelete] = useState(null) // Almacena el ID d
           onChange={handleFilterChange}
         />
       </div>
+      <div className="col-md-2">
+        <CFormLabel>Birth Date</CFormLabel>
+        <CFormInput
+          type="date"
+          placeholder="Search Birth Date"
+          name="birth_date"
+          value={filters.birth_date}
+          onChange={handleFilterChange}
+        />
+      </div>
     </CForm>
   </CCardBody>
 </CCard>
@@ -203,6 +216,7 @@ const [patientToDelete, setPatientToDelete] = useState(null) // Almacena el ID d
                 <CTableHeaderCell>Adress</CTableHeaderCell>
                 <CTableHeaderCell>Phone</CTableHeaderCell>
                 <CTableHeaderCell>Email</CTableHeaderCell>
+                <CTableHeaderCell>Birth Date</CTableHeaderCell>
                 <CTableHeaderCell>Actions</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
@@ -217,6 +231,7 @@ const [patientToDelete, setPatientToDelete] = useState(null) // Almacena el ID d
       <CTableDataCell>{patient.adress}</CTableDataCell>
       <CTableDataCell>{patient.phone}</CTableDataCell>
       <CTableDataCell>{patient.email}</CTableDataCell>
+      <CTableDataCell>{patient.birth_date}</CTableDataCell>
       <CTableDataCell>
         <div className='buttom_action'>
         <CButton className='buttom_action_1' color="primary" size="sm" onClick={() => handleEdit(patient)}>Edit</CButton>{' '}
@@ -300,6 +315,14 @@ const [patientToDelete, setPatientToDelete] = useState(null) // Almacena el ID d
             onChange={(e) => setSelectedPatient({ ...selectedPatient, email: e.target.value })}
           />
         </div>
+        <div className="mb-3">
+          <CFormLabel>Birth Date</CFormLabel>
+          <CFormInput
+            type="date"
+            value={selectedPatient.birth_date || ''}
+            onChange={(e) => setSelectedPatient({ ...selectedPatient, birth_date: e.target.value })}
+          />
+        </div>
       </CForm>
     )}
   </CModalBody>
@@ -371,6 +394,15 @@ const [patientToDelete, setPatientToDelete] = useState(null) // Almacena el ID d
           placeholder="Enter Email"
           value={newPatient.email}
           onChange={(e) => setNewPatient({ ...newPatient, email: e.target.value })}
+        />
+      </div>
+      <div className="mb-3">
+        <CFormLabel>Birth Date</CFormLabel>
+        <CFormInput
+          type="date"
+          placeholder="Enter Birth Date"
+          value={newPatient.birth_date}
+          onChange={(e) => setNewPatient({ ...newPatient, birth_date: e.target.value })}
         />
       </div>
     </CForm>
