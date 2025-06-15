@@ -3,6 +3,7 @@ const MedicationList = React.lazy(() => import('./views/medication/MedicationTab
 const UserList = React.lazy(() => import('./views/users/UserTable'))
 const ProfiledPage = React.lazy(() => import('./views/profiled/Profiled'))
 const PatientList = React.lazy(() => import('./views/patient/PatientTable'))
+const AppointmentList = React.lazy(() => import('./views/appointment/AppointmentTable'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -104,6 +105,7 @@ const routes = [
   { path: '/medication', exact: true, name: 'Medication', element: MedicationList },
   { path: '/profiled', exact: true, name: 'Profile', element: ProfiledPage },
   { path: '/patient', exact: true, name: 'Patient', element: PatientList },
+  { path: '/appointment', exact: true, name: 'Appointment', element: AppointmentList },
 ]
 
 export default routes

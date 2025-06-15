@@ -466,15 +466,21 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Medication',
-    to: '/medication',
-    icon: <CIcon icon={cilMedicalCross} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
     name: 'Patient',
     to: '/patient',
     icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Appointments',
+    to: '/appointment',
+    icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Medication',
+    to: '/medication',
+    icon: <CIcon icon={cilMedicalCross} customClassName="nav-icon" />,
   },
 ]
 
