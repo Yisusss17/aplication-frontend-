@@ -65,3 +65,9 @@ body {
     --cui-footer-bg: var(--cui-body-bg);
   }
 }
+
+/* App.css */
+input::placeholder {
+  color: #000 !important;
+  opacity: 1;
+}
