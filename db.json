@@ -3,7 +3,8 @@
     {
       "username": "name",
       "email": "hola@gmail.com",
-      "password": "1234"
+      "password": "1234",
+      "id": "aef2"
     },
     {
       "id": "36c0",
@@ -28,6 +29,42 @@
       "username": "hello",
       "email": "hello@gmail.com",
       "password": "12345"
+    },
+    {
+      "id": "6e2b",
+      "username": "domoromo",
+      "email": "alessandro@gmail.com",
+      "password": "123456",
+      "confirmPassword": "123456",
+      "identity_card": "27361684",
+      "first_name": "Alessandro",
+      "last_name": "Domoromo",
+      "address": "Los Teques",
+      "phone": "04247798866"
+    },
+    {
+      "id": "fc2a",
+      "username": "asdas",
+      "email": "hola@gmail.com",
+      "password": "12345",
+      "confirmPassword": "12345",
+      "identity_card": "98765",
+      "first_name": "ohana",
+      "last_name": "zulia",
+      "address": "abajo",
+      "phone": "04243126574"
+    },
+    {
+      "id": "d859",
+      "username": "ohana",
+      "email": "loro@gmail.com",
+      "password": "0987",
+      "confirmPassword": "0987",
+      "identity_card": "123",
+      "first_name": "loro",
+      "last_name": "andante",
+      "address": "bo",
+      "phone": "123"
     }
   ]
 }

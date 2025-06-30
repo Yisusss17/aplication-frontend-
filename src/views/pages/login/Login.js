@@ -135,7 +135,7 @@ const Login = () => {
                       type="email"
                       placeholder="Email"
                       autoComplete="username"
-                      className="rounded-end bg-white"
+                      className="rounded-end bg-white text-dark"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -150,7 +150,7 @@ const Login = () => {
                       type="password"
                       placeholder="Password"
                       autoComplete="current-password"
-                      className="rounded-end bg-white"
+                      className="rounded-end bg-white text-dark"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
