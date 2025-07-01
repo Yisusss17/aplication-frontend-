@@ -28,6 +28,7 @@ const Register = () => {
     last_name: '',
     address: '',
     phone: '',
+    role_id: 1, // Agrega el role_id por defecto
   })
 
   const [formErrors, setFormErrors] = useState({})
@@ -61,7 +62,8 @@ const Register = () => {
     if (Object.keys(errors).length > 0) return
 
     try {
-      await axios.post('http://localhost:3001/users', newUser)
+      // Asegura que role_id siempre sea 1 al enviar
+      await axios.post('http://localhost:3001/users', { ...newUser, role_id: 1 })
       setSuccessMessage('User registered successfully!')
 
       setTimeout(() => {
