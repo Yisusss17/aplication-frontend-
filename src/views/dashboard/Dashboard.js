@@ -1,185 +1,195 @@
-import React from 'react'
-import classNames from 'classnames'
-
+import { useState, useEffect } from 'react'
 import {
-  CAvatar,
-  CButton,
-  CButtonGroup,
   CCard,
   CCardBody,
-  CCardFooter,
-  CCardHeader,
-  CCol,
-  CProgress,
   CRow,
+  CCol,
   CTable,
-  CTableBody,
-  CTableDataCell,
   CTableHead,
-  CTableHeaderCell,
+  CTableBody,
   CTableRow,
+  CTableHeaderCell,
+  CTableDataCell,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import {
-  cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
-  cifPl,
-  cifUs,
-  cibTwitter,
-  cilCloudDownload,
-  cilPeople,
-  cilUser,
-  cilUserFemale,
-} from '@coreui/icons'
-
-import avatar1 from 'src/assets/images/avatars/1.jpg'
-import avatar2 from 'src/assets/images/avatars/2.jpg'
-import avatar3 from 'src/assets/images/avatars/3.jpg'
-import avatar4 from 'src/assets/images/avatars/4.jpg'
-import avatar5 from 'src/assets/images/avatars/5.jpg'
-import avatar6 from 'src/assets/images/avatars/6.jpg'
-
-import WidgetsBrand from '../widgets/WidgetsBrand'
-import WidgetsDropdown from '../widgets/WidgetsDropdown'
-import MainChart from './MainChart'
+import { CChartDoughnut, CChartBar } from '@coreui/react-chartjs'
+import dashboardApi from '../../api/endpoints/dashboardApi'
+import './css/dashboard.css'
+import formatDateTime from '../../utils/formatDateTime'
 
 const Dashboard = () => {
-  const progressExample = [
-    { title: 'Visits', value: '29.703 Users', percent: 40, color: 'success' },
-    { title: 'Unique', value: '24.093 Users', percent: 20, color: 'info' },
-    { title: 'Pageviews', value: '78.706 Views', percent: 60, color: 'warning' },
-    { title: 'New Users', value: '22.123 Users', percent: 80, color: 'danger' },
-    { title: 'Bounce Rate', value: 'Average Rate', percent: 40.15, color: 'primary' },
-  ]
+  const [users, setUsers] = useState([])
+  const [postsMonth, setPostsMonth] = useState([0, 0, 0, 0])
+  const [postsYear, setPostsYear] = useState([0, 0, 0, 0])
+  const [postsPerMonth, setPostsPerMonth] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  const [loading, setLoading] = useState(true)
 
-  const progressGroupExample1 = [
-    { title: 'Monday', value1: 34, value2: 78 },
-    { title: 'Tuesday', value1: 56, value2: 94 },
-    { title: 'Wednesday', value1: 12, value2: 67 },
-    { title: 'Thursday', value1: 43, value2: 91 },
-    { title: 'Friday', value1: 22, value2: 73 },
-    { title: 'Saturday', value1: 53, value2: 82 },
-    { title: 'Sunday', value1: 9, value2: 69 },
-  ]
-
-  const progressGroupExample2 = [
-    { title: 'Male', icon: cilUser, value: 53 },
-    { title: 'Female', icon: cilUserFemale, value: 43 },
-  ]
-
-  const progressGroupExample3 = [
-    { title: 'Organic Search', icon: cibGoogle, percent: 56, value: '191,235' },
-    { title: 'Facebook', icon: cibFacebook, percent: 15, value: '51,223' },
-    { title: 'Twitter', icon: cibTwitter, percent: 11, value: '37,564' },
-    { title: 'LinkedIn', icon: cibLinkedin, percent: 8, value: '27,319' },
-  ]
-
-  const tableExample = [
-    {
-      avatar: { src: avatar1, status: 'success' },
-      user: {
-        name: 'Yiorgos Avraamu',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'USA', flag: cifUs },
-      usage: {
-        value: 50,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { name: 'Mastercard', icon: cibCcMastercard },
-      activity: '10 sec ago',
-    },
-    {
-      avatar: { src: avatar2, status: 'danger' },
-      user: {
-        name: 'Avram Tarasios',
-        new: false,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Brazil', flag: cifBr },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'info',
-      },
-      payment: { name: 'Visa', icon: cibCcVisa },
-      activity: '5 minutes ago',
-    },
-    {
-      avatar: { src: avatar3, status: 'warning' },
-      user: { name: 'Quintin Ed', new: true, registered: 'Jan 1, 2023' },
-      country: { name: 'India', flag: cifIn },
-      usage: {
-        value: 74,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'warning',
-      },
-      payment: { name: 'Stripe', icon: cibCcStripe },
-      activity: '1 hour ago',
-    },
-    {
-      avatar: { src: avatar4, status: 'secondary' },
-      user: { name: 'Enéas Kwadwo', new: true, registered: 'Jan 1, 2023' },
-      country: { name: 'France', flag: cifFr },
-      usage: {
-        value: 98,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'danger',
-      },
-      payment: { name: 'PayPal', icon: cibCcPaypal },
-      activity: 'Last month',
-    },
-    {
-      avatar: { src: avatar5, status: 'success' },
-      user: {
-        name: 'Agapetus Tadeáš',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Spain', flag: cifEs },
-      usage: {
-        value: 22,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'primary',
-      },
-      payment: { name: 'Google Wallet', icon: cibCcApplePay },
-      activity: 'Last week',
-    },
-    {
-      avatar: { src: avatar6, status: 'danger' },
-      user: {
-        name: 'Friderik Dávid',
-        new: true,
-        registered: 'Jan 1, 2023',
-      },
-      country: { name: 'Poland', flag: cifPl },
-      usage: {
-        value: 43,
-        period: 'Jun 11, 2023 - Jul 10, 2023',
-        color: 'success',
-      },
-      payment: { name: 'Amex', icon: cibCcAmex },
-      activity: 'Last week',
-    },
-  ]
+  useEffect(() => {
+    setLoading(true)
+    dashboardApi
+      .getDashboardData()
+      .then((res) => {
+        const data = res.data.data
+        setUsers(data.last_logins || [])
+        setPostsMonth([
+          data.posts_month?.Project || 0,
+          data.posts_month?.Event || 0,
+          data.posts_month?.News || 0,
+          data.posts_month?.Announcement || 0,
+        ])
+        setPostsYear([
+          data.posts_year?.Project || 0,
+          data.posts_year?.Event || 0,
+          data.posts_year?.News || 0,
+          data.posts_year?.Announcement || 0,
+        ])
+        setPostsPerMonth(data.posts_per_month || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
 
   return (
-    <>
-    
-    </>
+    <div>
+      <CRow className="component-space d-flex justify-content-center">
+        <CCol md={5}>
+          <CCard>
+            <CCardBody>
+              <h5>Publicaciones del mes</h5>
+              {loading ? (
+                <div className="cards-container">Cargando contenido...</div>
+              ) : postsMonth.every((val) => val === 0) ? (
+                <div className="cards-container">Aún no existen publicaciones</div>
+              ) : (
+                <CChartDoughnut
+                  data={{
+                    labels: ['Proyecto', 'Evento', 'Noticia', 'Anuncio'],
+                    datasets: [
+                      {
+                        data: postsMonth,
+                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0'],
+                      },
+                    ],
+                  }}
+                />
+              )}
+            </CCardBody>
+          </CCard>
+        </CCol>
+        <CCol md={5}>
+          <CCard>
+            <CCardBody>
+              <h5>Publicaciones del año</h5>
+              {loading ? (
+                <div className="cards-container">Cargando contenido...</div>
+              ) : postsYear.every((val) => val === 0) ? (
+                <div className="cards-container">Aún no existen publicaciones</div>
+              ) : (
+                <CChartDoughnut
+                  data={{
+                    labels: ['Proyecto', 'Evento', 'Noticia', 'Anuncio'],
+                    datasets: [
+                      {
+                        data: postsYear,
+                        backgroundColor: ['#36A2EB', '#FFCE56', '#FF6384', '#4BC0C0'],
+                      },
+                    ],
+                  }}
+                />
+              )}
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+      <CRow className="component-space d-flex justify-content-center">
+        <CCol md={10}>
+          <CCard>
+            <CCardBody>
+              <h5>Últimos 5 accesos</h5>
+              <CTable striped hover responsive>
+                <CTableHead>
+                  <CTableRow>
+                    <CTableHeaderCell>Nombre</CTableHeaderCell>
+                    <CTableHeaderCell>Apellido</CTableHeaderCell>
+                    <CTableHeaderCell>Comunidad</CTableHeaderCell>
+                    <CTableHeaderCell>Último acceso</CTableHeaderCell>
+                  </CTableRow>
+                </CTableHead>
+                <CTableBody>
+                  {loading ? (
+                    <CTableRow>
+                      <CTableDataCell colSpan={4} style={{ textAlign: 'center' }}>
+                        Cargando contenido...
+                      </CTableDataCell>
+                    </CTableRow>
+                  ) : users.length === 0 ? (
+                    <CTableRow>
+                      <CTableDataCell colSpan={4} style={{ textAlign: 'center' }}>
+                        Aún no existen Últimos accesos{' '}
+                      </CTableDataCell>
+                    </CTableRow>
+                  ) : (
+                    users.map((user) => (
+                      <CTableRow key={user.id}>
+                        <CTableDataCell>{user.first_name}</CTableDataCell>
+                        <CTableDataCell>{user.last_name}</CTableDataCell>
+                        <CTableDataCell>{user.community}</CTableDataCell>
+                        <CTableDataCell>{formatDateTime(user.last_login)}</CTableDataCell>
+                      </CTableRow>
+                    ))
+                  )}
+                </CTableBody>
+              </CTable>
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+      <CRow className="component-space d-flex justify-content-center">
+        <CCol md={10}>
+          <CCard>
+            <CCardBody>
+              <h5>Publicaciones por mes en el año</h5>
+              {loading ? (
+                <div className="cards-container">Cargando contenido...</div>
+              ) : postsPerMonth.every((val) => val === 0) ? (
+                <div className="cards-container">Aún no existen publicaciones</div>
+              ) : (
+                <CChartBar
+                  data={{
+                    labels: [
+                      'Enero',
+                      'Febrero',
+                      'Marzo',
+                      'Abril',
+                      'Mayo',
+                      'Junio',
+                      'Julio',
+                      'Agosto',
+                      'Septiembre',
+                      'Octubre',
+                      'Noviembre',
+                      'Diciembre',
+                    ],
+                    datasets: [
+                      {
+                        label: 'Publicaciones',
+                        backgroundColor: '#36A2EB',
+                        data: postsPerMonth,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: { display: false },
+                    },
+                  }}
+                />
+              )}
+            </CCardBody>
+          </CCard>
+        </CCol>
+      </CRow>
+    </div>
   )
 }
 
