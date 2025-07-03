@@ -21,6 +21,20 @@ const AppointmentDashboard = () => {
   const [loading, setLoading] = useState(true)
   const [users, setUsers] = useState([])
 
+  // Obtener el role_id del usuario desde localStorage
+  let roleId = null
+  try {
+    const userData = JSON.parse(localStorage.getItem('user'))
+    roleId = userData?.user?.role_id
+  } catch (e) {
+    roleId = null
+  }
+
+  // Si el usuario es role_id=1, no mostrar nada
+  if (roleId === 1) {
+    return null
+  }
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -69,7 +83,7 @@ const AppointmentDashboard = () => {
 
   // Busca el nombre del doctor usando user_id
   const getDoctorName = (doctor) => {
-    if (doctor?.user_id && Array.isArray(users)) {
+    if (doctor && typeof doctor === 'object' && doctor.user_id && Array.isArray(users)) {
       const user = users.find(u => u.user_id === doctor.user_id)
       if (user) {
         return `${user.first_name} ${user.last_name}`
