@@ -1,9 +1,9 @@
 import React from 'react'
 const MedicationList = React.lazy(() => import('./views/medication/MedicationTable'))
-const UserList = React.lazy(() => import('./views/users/UserTable'))
+const UserList = React.lazy(() => import('./views/users/UserList'))
 const ProfiledPage = React.lazy(() => import('./views/profiled/Profiled'))
-const PatientList = React.lazy(() => import('./views/patient/PatientTable'))
-const AppointmentList = React.lazy(() => import('./views/appointment/AppointmentTable'))
+const PatientList = React.lazy(() => import('./views/patient/PatientList'))
+const AppointmentList = React.lazy(() => import('./views/appointment/AppointmentList'))
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))

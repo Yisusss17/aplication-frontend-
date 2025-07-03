@@ -27,28 +27,36 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleLogin = async () => {
+    setError('')
     if (!email || !password) {
       setError('Email and password are required')
       return
     }
+    setLoading(true)
     try {
-      const response = await axios.get('http://localhost:3001/users', {
-        params: {
-          email,
-          password,
-        },
+      const response = await axios.post('http://localhost:4000/api/auth/login', {
+        email,
+        password,
       })
 
-      if (response.data.length > 0) {
-        navigate('/dashboard')
-      } else {
-        setError('Invalid email or password')
+      const token = response.data.token
+      const user = response.data.user
+
+      localStorage.setItem('token', token)
+      if (user && user.role_id) {
+        localStorage.setItem('user', JSON.stringify({ user }))
       }
+
+      navigate('/dashboard') // Navega primero
+      setTimeout(() => window.location.reload(), 100) // Recarga después de navegar
     } catch (err) {
       console.error(err)
-      setError('An error occurred while logging in')
+      setError('Invalid email or password')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -62,47 +70,29 @@ const Login = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <CModal
-  alignment="center"
-  visible={visible}
-  onClose={() => setVisible(false)}
-  className="rounded-4"
->
-  <CModalHeader className="bg-info text-white rounded-top">
-    <CModalTitle className="fw-bold">🔒 Password Recovery</CModalTitle>
-  </CModalHeader>
-
-  <CModalBody className="bg-white bg-opacity-75">
-    <p className="mb-3 text-dark">
-      Please enter your email address to receive a password recovery link.
-    </p>
-    <CInputGroup>
-      <CInputGroupText className="bg-light text-dark">@</CInputGroupText>
-      <CFormInput
-        placeholder="Enter your email"
-        autoComplete="email"
-        className="bg-white text-dark"
-      />
-    </CInputGroup>
-  </CModalBody>
-
-  <CModalFooter className="bg-white bg-opacity-75 rounded-bottom">
-    <CButton
-      color="light"
-      className="border border-secondary text-dark rounded-pill px-4"
-      onClick={() => setVisible(false)}
-    >
-      Close
-    </CButton>
-    <CButton
-      color="info"
-      className="text-white rounded-pill px-4 fw-semibold"
-    >
-      Send
-    </CButton>
-  </CModalFooter>
-</CModal>
-
+      {/* Modal de recuperación */}
+      <CModal alignment="center" visible={visible} onClose={() => setVisible(false)} className="rounded-4">
+        <CModalHeader className="bg-info text-white rounded-top">
+          <CModalTitle className="fw-bold">🔒 Password Recovery</CModalTitle>
+        </CModalHeader>
+        <CModalBody className="bg-white bg-opacity-75">
+          <p className="mb-3 text-dark">
+            Please enter your email address to receive a password recovery link.
+          </p>
+          <CInputGroup>
+            <CInputGroupText className="bg-light text-dark">@</CInputGroupText>
+            <CFormInput placeholder="Enter your email" autoComplete="email" className="bg-white text-dark" />
+          </CInputGroup>
+        </CModalBody>
+        <CModalFooter className="bg-white bg-opacity-75 rounded-bottom">
+          <CButton color="light" className="border border-secondary text-dark rounded-pill px-4" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+          <CButton color="info" className="text-white rounded-pill px-4 fw-semibold">
+            Send
+          </CButton>
+        </CModalFooter>
+      </CModal>
 
       <CContainer>
         <CRow className="justify-content-center">
@@ -166,8 +156,9 @@ const Login = () => {
                       size="lg"
                       className="fw-bold text-white rounded-pill shadow-sm"
                       onClick={handleLogin}
+                      disabled={loading}
                     >
-                      Login
+                      {loading ? 'Loading...' : 'Login'}
                     </CButton>
                   </div>
                   <div className="text-center mb-3">

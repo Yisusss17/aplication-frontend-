@@ -1,23 +1,22 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import { 
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDescription,
-  cilDrop,
-  cilExternalLink,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
   cilSpeedometer,
-  cilStar,
   cilUser,
-  cilMedicalCross,
   cilGroup,
-  } from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+  cilDescription,
+  cilMedicalCross,
+} from '@coreui/icons'
+import { CNavItem, CNavTitle } from '@coreui/react'
+
+// Obtener el usuario del localStorage
+let userRoleId = null
+try {
+  const userData = JSON.parse(localStorage.getItem('user'))
+  userRoleId = userData?.user?.role_id
+} catch (e) {
+  userRoleId = null
+}
 
 const _nav = [
   {
@@ -33,12 +32,16 @@ const _nav = [
     component: CNavTitle,
     name: 'modules',
   },
-  {
-    component: CNavItem,
-    name: 'Users',
-    to: '/users',
-    icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
-  },
+  // Solo mostrar Users si el role_id NO es 1
+  ...(userRoleId !== 1
+    ? [{
+        component: CNavItem,
+        name: 'Users',
+        to: '/users',
+        icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
+      }]
+    : []
+  ),
   {
     component: CNavItem,
     name: 'Patient',

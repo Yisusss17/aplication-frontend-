@@ -7,10 +7,12 @@ import {
   CCol,
   CContainer,
   CForm,
+  CFormLabel,
   CFormInput,
   CInputGroup,
   CInputGroupText,
   CRow,
+  CAlert,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser, cilPhone, cilHome } from '@coreui/icons'
@@ -28,7 +30,7 @@ const Register = () => {
     last_name: '',
     address: '',
     phone: '',
-    role_id: 1, // Agrega el role_id por defecto
+    role_id: 1,
   })
 
   const [formErrors, setFormErrors] = useState({})
@@ -36,7 +38,6 @@ const Register = () => {
 
   const validateForm = () => {
     const errors = {}
-
     if (!newUser.username.trim()) errors.username = 'Username is required'
     if (!newUser.identity_card.trim()) errors.identity_card = 'ID is required'
     if (!newUser.first_name.trim()) errors.first_name = 'First name is required'
@@ -50,7 +51,6 @@ const Register = () => {
     } else if (newUser.password !== newUser.confirmPassword) {
       errors.confirmPassword = 'Passwords do not match'
     }
-
     return errors
   }
 
@@ -62,17 +62,37 @@ const Register = () => {
     if (Object.keys(errors).length > 0) return
 
     try {
-      // Asegura que role_id siempre sea 1 al enviar
-      await axios.post('http://localhost:3001/users', { ...newUser, role_id: 1 })
-      setSuccessMessage('User registered successfully!')
+      const payload = {
+        username: newUser.username,
+        email: newUser.email,
+        password: newUser.password,
+        identity_card: newUser.identity_card,
+        first_name: newUser.first_name,
+        last_name: newUser.last_name,
+        address: newUser.address,
+        phone: newUser.phone,
+        role_id: 1,
+      }
 
-      setTimeout(() => {
+      const response = await axios.post('http://localhost:4000/api/auth/register', payload)
+
+      if (response.status === 201 || response.data?.message?.includes('registrado')) {
+        setSuccessMessage('User registered successfully!')
+        setTimeout(() => {
+          setSuccessMessage('')
+          navigate('/login')
+        }, 3000)
+      } else {
         setSuccessMessage('')
-        navigate('/login')
-      }, 3000)
+        setFormErrors({ general: 'Registration failed. Please try again.' })
+      }
     } catch (error) {
-      console.error('Error:', error)
-      alert('Failed to register user. Please try again.')
+      setSuccessMessage('')
+      setFormErrors({
+        general:
+          error.response?.data?.message ||
+          'Failed to register user. Please check your data or try again.',
+      })
     }
   }
 
@@ -113,18 +133,27 @@ const Register = () => {
                 </div>
 
                 {successMessage && (
-                  <div className="alert alert-success text-center slide-up-success" role="alert">
+                  <CAlert color="success" className="slide-up-success text-center mb-3">
                     {successMessage}
-                  </div>
+                  </CAlert>
+                )}
+                {formErrors.general && (
+                  <CAlert color="danger" className="text-center mb-3">
+                    <strong>{formErrors.general}</strong>
+                  </CAlert>
                 )}
 
                 <CForm onSubmit={handleCreateAction}>
                   {/* Username */}
+                  <CFormLabel htmlFor="username" className="fw-semibold text-dark">
+                    Username
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
+                      id="username"
                       type="text"
                       placeholder="Username"
                       autoComplete="username"
@@ -139,11 +168,15 @@ const Register = () => {
                   )}
 
                   {/* Identity Card */}
+                  <CFormLabel htmlFor="identity_card" className="fw-semibold text-dark">
+                    Identity Card
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
+                      id="identity_card"
                       type="text"
                       placeholder="Identity Card"
                       autoComplete="off"
@@ -158,11 +191,15 @@ const Register = () => {
                   )}
 
                   {/* First Name */}
+                  <CFormLabel htmlFor="first_name" className="fw-semibold text-dark">
+                    First Name
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
+                      id="first_name"
                       type="text"
                       placeholder="First Name"
                       autoComplete="off"
@@ -177,11 +214,15 @@ const Register = () => {
                   )}
 
                   {/* Last Name */}
+                  <CFormLabel htmlFor="last_name" className="fw-semibold text-dark">
+                    Last Name
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
+                      id="last_name"
                       type="text"
                       placeholder="Last Name"
                       autoComplete="off"
@@ -196,9 +237,13 @@ const Register = () => {
                   )}
 
                   {/* Email */}
+                  <CFormLabel htmlFor="email" className="fw-semibold text-dark">
+                    Email
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">@</CInputGroupText>
                     <CFormInput
+                      id="email"
                       type="email"
                       placeholder="Email"
                       autoComplete="email"
@@ -213,11 +258,15 @@ const Register = () => {
                   )}
 
                   {/* Phone */}
+                  <CFormLabel htmlFor="phone" className="fw-semibold text-dark">
+                    Phone
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilPhone} />
                     </CInputGroupText>
                     <CFormInput
+                      id="phone"
                       type="text"
                       placeholder="Phone"
                       autoComplete="tel"
@@ -232,11 +281,15 @@ const Register = () => {
                   )}
 
                   {/* Address */}
+                  <CFormLabel htmlFor="address" className="fw-semibold text-dark">
+                    Address
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilHome} />
                     </CInputGroupText>
                     <CFormInput
+                      id="address"
                       type="text"
                       placeholder="Address"
                       autoComplete="street-address"
@@ -251,11 +304,15 @@ const Register = () => {
                   )}
 
                   {/* Password */}
+                  <CFormLabel htmlFor="password" className="fw-semibold text-dark">
+                    Password
+                  </CFormLabel>
                   <CInputGroup className="mb-1">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilLockLocked} />
                     </CInputGroupText>
                     <CFormInput
+                      id="password"
                       type="password"
                       placeholder="Password"
                       autoComplete="new-password"
@@ -270,18 +327,24 @@ const Register = () => {
                   )}
 
                   {/* Confirm Password */}
+                  <CFormLabel htmlFor="confirmPassword" className="fw-semibold text-dark">
+                    Confirm Password
+                  </CFormLabel>
                   <CInputGroup className="mb-2">
                     <CInputGroupText className="bg-light text-dark rounded-start">
                       <CIcon icon={cilLockLocked} />
                     </CInputGroupText>
                     <CFormInput
+                      id="confirmPassword"
                       type="password"
                       placeholder="Confirm Password"
                       autoComplete="new-password"
                       className={inputClass('confirmPassword')}
                       style={{ color: '#000' }}
                       value={newUser.confirmPassword}
-                      onChange={(e) => setNewUser({ ...newUser, confirmPassword: e.target.value })}
+                      onChange={(e) =>
+                        setNewUser({ ...newUser, confirmPassword: e.target.value })
+                      }
                     />
                   </CInputGroup>
                   {formErrors.confirmPassword && (
@@ -298,12 +361,10 @@ const Register = () => {
                       Create Account
                     </CButton>
                   </div>
+
                   <div className="text-center">
                     <Link to="/login" className="text-decoration-none">
-                      <CButton
-                        color="danger"
-                        className="text-white fw-semibold rounded-pill px-4"
-                      >
+                      <CButton color="danger" className="text-white fw-semibold rounded-pill px-4">
                         Cancel
                       </CButton>
                     </Link>
@@ -314,6 +375,43 @@ const Register = () => {
           </CCol>
         </CRow>
       </CContainer>
+      <style>
+        {`
+        .slide-up-success {
+          animation: slideUpFade 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+          position: fixed;
+          left: 50%;
+          bottom: 40px;
+          transform: translateX(-50%);
+          z-index: 9999;
+          min-width: 320px;
+          max-width: 90vw;
+        }
+        @keyframes slideUpFade {
+          from {
+            opacity: 0;
+            transform: translateY(100%);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        `}
+      </style>
+      <style>
+        {`
+          .register-dark-placeholder input::placeholder,
+          .register-dark-placeholder input::-webkit-input-placeholder,
+          .register-dark-placeholder input::-moz-placeholder,
+          .register-dark-placeholder input:-ms-input-placeholder,
+          .register-dark-placeholder input::-ms-input-placeholder,
+          .register-dark-placeholder input::-o-placeholder {
+            color: #000 !important;
+            opacity: 1 !important;
+          }
+        `}
+      </style>
     </div>
   )
 }

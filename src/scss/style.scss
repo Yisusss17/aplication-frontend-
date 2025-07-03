@@ -68,8 +68,15 @@ body {
 
 
 input::placeholder {
-  color: #000 !important;
+  color: #393838 !important;
   opacity: 1;
+}
+
+@include color-mode(dark) {
+  input::placeholder {
+    color: #fff !important;
+    opacity: 1;
+  }
 }
 
 @keyframes slideUpFade {

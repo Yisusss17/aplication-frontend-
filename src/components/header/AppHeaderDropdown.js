@@ -8,7 +8,7 @@ const AppHeaderDropdown = () => {
 
   const handleLogout = () => {
     // Aquí puedes limpiar el almacenamiento local/session si es necesario
-    // localStorage.removeItem('token')
+    localStorage.removeItem('token')
     navigate('/login')
   }
 
